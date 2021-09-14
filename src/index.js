@@ -1,9 +1,12 @@
-import './index.css'
-import './index.less'
+// import './index.less'
+// import './index.css'
+import '../static/icon/iconfont.css'
+// import data from './data.json'
 
-import data from './data.json'
 
-let add = (x, y) => x + y
+function add(x, y) {
+    return x + y
+}
 
-console.log(data)
-console.log(add(1,2))
+console.log(add(1, 2))
+console.log(add(1, 2))
