@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-// import OpenLayers from '../views/openLayers.vue'
 
 Vue.use(VueRouter)
 
@@ -13,20 +12,24 @@ const routes = [{
     {
         path: '/map',
         name: 'map',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
         component: () =>
-            import ( /* webpackChunkName: "about" */ '../views/map.vue')
+            import ('../views/map/map.vue')
     },
     {
         path: '/openLayers',
         name: 'openLayers',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
         component: () =>
-            import ( /* webpackChunkName: "about" */ '../views/openLayers.vue')
+            import ('../views/map/openLayers.vue')
+    }, {
+        path: '/leafletDraw',
+        name: 'leafletDraw',
+        component: () =>
+            import ('../views/map/leafletDraw.vue')
+    }, {
+        path: '/flex',
+        name: 'flex',
+        component: () =>
+            import ('../views/cssClass/flex.vue')
     }
 ]
 
