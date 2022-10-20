@@ -13,10 +13,13 @@ import 'leaflet.chinatmsproviders'
 import map from './map/map'
 import testMap from './map/testMap'
 import 'ol/ol.css'
+import * as echarts from 'echarts';
+
 Vue.use(ElementUI);
 Vue.prototype.$map = map
 Vue.prototype.$testMap = testMap
 Vue.L = Vue.prototype.$L = L;
+Vue.L = Vue.prototype.$echarts = echarts;
 L.esri = esri
 
 
