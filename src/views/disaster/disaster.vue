@@ -19,10 +19,9 @@
           <i class="el-icon-caret-left" v-if="!sidebarRetract"></i>
           <i class="el-icon-caret-right" v-else></i>
         </div>
+        <RadarImage></RadarImage>
       </aside>
-
-      <div class="map-box"></div>
-      <div class="layer-tools"><LayerTools></LayerTools></div>
+      <MasterMap></MasterMap>
     </main>
   </div>
 </template>
@@ -30,24 +29,18 @@
   <script>
 import geoJson from "@/api/mapJson";
 import { getAllAndroidPlugins, getList } from "@/api/qinqiu";
-
-import LayerTools from "@/components/LayerTools.vue";
+import MasterMap from "@/components/MasterMap.vue";
+import RadarImage from "./components/radarImage.vue";
 
 export default {
   name: "HomeView",
-  components: { LayerTools },
+  components: { MasterMap, RadarImage },
   data() {
     return {
       tabData: [
-        {
-          name: "雷达影像",
-        },
-        {
-          name: "监测成果",
-        },
-        {
-          name: "预警分析",
-        },
+        { name: "雷达影像" },
+        { name: "监测成果" },
+        { name: "预警分析" },
       ],
       cut: "雷达影像",
       sidebarRetract: false,
@@ -94,7 +87,6 @@ export default {
         height: 75px;
         color: #aaaaaa;
         font-size: 25px;
-        // background:red;
         line-height: 100px;
         cursor: pointer;
       }
@@ -138,10 +130,8 @@ export default {
         cursor: pointer;
       }
     }
-
     .map-box {
       height: 100%;
-      background: green;
     }
     .layer-tools {
       position: absolute;
