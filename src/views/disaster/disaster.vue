@@ -19,22 +19,29 @@
           <i class="el-icon-caret-left" v-if="!sidebarRetract"></i>
           <i class="el-icon-caret-right" v-else></i>
         </div>
-        <RadarImage></RadarImage>
+        <!-- 雷达影像数据筛选组件 -->
+        <RadarImage v-if="cut == '雷达影像'"></RadarImage>
+        <!-- 监测成果数据筛选组件 -->
+        <MonitorResults v-if="cut == '监测成果'"></MonitorResults>
+        <!-- 预警分析数据筛选组件 -->
+        <WarningAnalysis v-if="cut == '预警分析'"></WarningAnalysis>
       </aside>
+      <!-- 地图组件 -->
       <MasterMap></MasterMap>
     </main>
   </div>
 </template>
-  
-  <script>
-import geoJson from "@/api/mapJson";
+
+<script>
 import { getAllAndroidPlugins, getList } from "@/api/qinqiu";
 import MasterMap from "@/components/MasterMap.vue";
 import RadarImage from "./components/radarImage.vue";
+import MonitorResults from "./components/monitorResults.vue";
+import WarningAnalysis from "./components/warningAnalysis.vue";
 
 export default {
   name: "HomeView",
-  components: { MasterMap, RadarImage },
+  components: { MasterMap, RadarImage, MonitorResults, WarningAnalysis },
   data() {
     return {
       tabData: [
@@ -55,15 +62,15 @@ export default {
   async mounted() {},
 };
 </script>
-  
-  <style lang="scss" scoped>
+
+<style lang="scss" scoped>
 .disaster-box {
   height: 100%;
   > header {
     position: relative;
     height: 80px;
     line-height: 80px;
-    background: url("../../assets/disaster-header.png") center center no-repeat;
+    background: url("../../assets/imgs/disaster-header.png") center center no-repeat;
     background-size: 100% 100%;
     box-sizing: border-box;
     padding: 0 20px;
@@ -141,4 +148,3 @@ export default {
   }
 }
 </style>
-  

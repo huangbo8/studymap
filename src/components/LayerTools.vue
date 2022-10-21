@@ -1,5 +1,10 @@
 <template>
-  <el-popover placement="left-start" width="400" trigger="click">
+  <el-popover
+    placement="left-start"
+    width="249"
+    trigger="manual"
+    v-model="isShow"
+  >
     <el-tree
       :data="layerData"
       show-checkbox
@@ -9,13 +14,13 @@
       :props="defaultProps"
     >
     </el-tree>
-    <div class="layer-box" slot="reference">
-      <img src="@/assets/layer-tools.png" alt="" />
+    <div class="layer-box" slot="reference" @click="isShow = !isShow">
+      <img src="@/assets/imgs/layer-tools.png" alt="" />
     </div>
   </el-popover>
 </template>
-  
-  <script>
+
+<script>
 export default {
   name: "LayerTools",
   components: {},
@@ -75,14 +80,15 @@ export default {
         children: "children",
         label: "label",
       },
+      isShow: false,
     };
   },
   methods: {},
   async mounted() {},
 };
 </script>
-  
-  <style lang="scss" scoped>
+
+<style lang="scss" scoped>
 .layer-box {
   width: 35px;
   height: 35px;
@@ -100,4 +106,3 @@ export default {
   }
 }
 </style>
-  

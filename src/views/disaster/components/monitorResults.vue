@@ -2,20 +2,24 @@
   <div class="root-box">
     <div class="condition">
       <div class="select-box">
-        <el-input
+        <el-input size="small" placeholder="线路" v-model="input" clearable>
+        </el-input>
+        <el-input size="small" placeholder="杆塔" v-model="input" clearable>
+        </el-input>
+        <el-select
           size="small"
-          placeholder="请输入线路"
           v-model="input"
           clearable
+          placeholder="沉降隆起速率"
         >
-        </el-input>
-        <el-input
-          size="small"
-          placeholder="请输入杆塔"
-          v-model="input"
-          clearable
-        >
-        </el-input>
+          <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          >
+          </el-option>
+        </el-select>
       </div>
       <div class="button-box">
         <el-button size="small" plain>
@@ -52,13 +56,33 @@
 </template>
 
 <script>
-import { color } from "echarts";
-
 export default {
   //   components: { LayerTools },
   data() {
     return {
       input: "",
+      options: [
+        {
+          value: "选项1",
+          label: "黄金糕",
+        },
+        {
+          value: "选项2",
+          label: "双皮奶",
+        },
+        {
+          value: "选项3",
+          label: "蚵仔煎",
+        },
+        {
+          value: "选项4",
+          label: "龙须面",
+        },
+        {
+          value: "选项5",
+          label: "北京烤鸭",
+        },
+      ],
       tableData: [
         {
           date: "2016-05-02",
@@ -143,9 +167,7 @@ export default {
       ],
     };
   },
-  methods: {
-    handleClick(row) {},
-  },
+  methods: { handleClick(row) {} },
   async mounted() {},
 };
 </script>

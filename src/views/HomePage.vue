@@ -25,14 +25,14 @@ export default {
 <style lang="scss" scoped>
 .homepage-box {
   height: 100%;
-  background: url("../assets/homepage.png") center center no-repeat;
+  background: url("../assets/imgs/homepage.png") center center no-repeat;
   background-size: 100% 100%;
 
   .homepage-header {
     box-sizing: border-box;
     position: relative;
     height: 15%;
-    background: url("../assets/homepage-header.png") center center no-repeat;
+    background: url("../assets/imgs/homepage-header.png") center center no-repeat;
     background-size: 100% 100%;
     >h3 {
       text-align: center;
