@@ -20,7 +20,10 @@
           <i class="el-icon-caret-right" v-else></i>
         </div>
         <!-- 雷达影像数据筛选组件 -->
-        <RadarImage @imageInfo="imageInfo" v-if="cut == '雷达影像'"></RadarImage>
+        <RadarImage
+          @imageInfo="imageInfo"
+          v-if="cut == '雷达影像'"
+        ></RadarImage>
         <!-- 监测成果数据筛选组件 -->
         <MonitorResults v-if="cut == '监测成果'"></MonitorResults>
         <!-- 预警分析数据筛选组件 -->
@@ -30,6 +33,9 @@
       <MasterMap></MasterMap>
       <!-- 历史雷达组件 -->
       <HistoryRadar v-if="historyRadarShow" class="location"></HistoryRadar>
+
+      <!-- 雷达影像详情表格组件 -->
+      <ImageParticulars ref="imageParticulars"></ImageParticulars>
     </main>
   </div>
 </template>
@@ -41,7 +47,7 @@ import RadarImage from "./components/radarImage.vue";
 import MonitorResults from "./components/monitorResults.vue";
 import WarningAnalysis from "./components/warningAnalysis.vue";
 import HistoryRadar from "@/components/historyRadar.vue";
-
+import ImageParticulars from "@/components/imageParticulars.vue";
 export default {
   name: "HomeView",
   components: {
@@ -50,6 +56,7 @@ export default {
     MonitorResults,
     WarningAnalysis,
     HistoryRadar,
+    ImageParticulars,
   },
   data() {
     return {
@@ -60,7 +67,7 @@ export default {
       ],
       cut: "雷达影像",
       sidebarRetract: false,
-      historyRadarShow:true
+      historyRadarShow: false,
     };
   },
   methods: {
@@ -69,8 +76,9 @@ export default {
     },
     flexible() {},
     imageInfo(row) {
-      this.historyRadarShow = true
-    }
+      this.historyRadarShow = true;
+      this.$refs.imageParticulars.dialogTableVisible = true;
+    },
   },
   async mounted() {},
 };
@@ -165,6 +173,7 @@ export default {
       height: calc(100% - 100px);
       right: 0;
       top: 70px;
+      z-index: 2199;
     }
   }
 }
