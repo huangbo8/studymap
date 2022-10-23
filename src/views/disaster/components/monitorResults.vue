@@ -33,6 +33,7 @@
 
     <div class="table-box">
       <el-table
+        @row-click="rowClick"
         height="100%"
         :data="tableData"
         stripe
@@ -51,6 +52,21 @@
           </template>
         </el-table-column>
       </el-table>
+    </div>
+
+    <div class="pagination-box">
+      <el-pagination
+        small
+        background
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page.sync="currentPage"
+        :pager-count="5"
+        :page-size="20"
+        layout="prev, pager, next,total"
+        :total="10000"
+      >
+      </el-pagination>
     </div>
   </div>
 </template>
@@ -165,9 +181,19 @@ export default {
           address: "上海市普陀区金沙江路 1516 弄",
         },
       ],
+      currentPage: 1,
     };
   },
-  methods: { handleClick(row) {} },
+  methods: {
+    handleClick(row) {},
+    handleSizeChange(val) {
+      console.log(`每页 ${val} 条`);
+    },
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`);
+    },
+    rowClick(row) {},
+  },
   async mounted() {},
 };
 </script>

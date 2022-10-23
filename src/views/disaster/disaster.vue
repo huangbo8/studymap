@@ -20,7 +20,7 @@
           <i class="el-icon-caret-right" v-else></i>
         </div>
         <!-- 雷达影像数据筛选组件 -->
-        <RadarImage v-if="cut == '雷达影像'"></RadarImage>
+        <RadarImage @imageInfo="imageInfo" v-if="cut == '雷达影像'"></RadarImage>
         <!-- 监测成果数据筛选组件 -->
         <MonitorResults v-if="cut == '监测成果'"></MonitorResults>
         <!-- 预警分析数据筛选组件 -->
@@ -28,6 +28,8 @@
       </aside>
       <!-- 地图组件 -->
       <MasterMap></MasterMap>
+      <!-- 历史雷达组件 -->
+      <HistoryRadar v-if="historyRadarShow" class="location"></HistoryRadar>
     </main>
   </div>
 </template>
@@ -38,10 +40,17 @@ import MasterMap from "@/components/MasterMap.vue";
 import RadarImage from "./components/radarImage.vue";
 import MonitorResults from "./components/monitorResults.vue";
 import WarningAnalysis from "./components/warningAnalysis.vue";
+import HistoryRadar from "@/components/historyRadar.vue";
 
 export default {
   name: "HomeView",
-  components: { MasterMap, RadarImage, MonitorResults, WarningAnalysis },
+  components: {
+    MasterMap,
+    RadarImage,
+    MonitorResults,
+    WarningAnalysis,
+    HistoryRadar,
+  },
   data() {
     return {
       tabData: [
@@ -51,6 +60,7 @@ export default {
       ],
       cut: "雷达影像",
       sidebarRetract: false,
+      historyRadarShow:true
     };
   },
   methods: {
@@ -58,6 +68,9 @@ export default {
       this.cut = name;
     },
     flexible() {},
+    imageInfo(row) {
+      this.historyRadarShow = true
+    }
   },
   async mounted() {},
 };
@@ -70,7 +83,8 @@ export default {
     position: relative;
     height: 80px;
     line-height: 80px;
-    background: url("../../assets/imgs/disaster-header.png") center center no-repeat;
+    background: url("../../assets/imgs/disaster-header.png") center center
+      no-repeat;
     background-size: 100% 100%;
     box-sizing: border-box;
     padding: 0 20px;
@@ -144,6 +158,13 @@ export default {
       position: absolute;
       right: 20px;
       top: 20px;
+    }
+    .location {
+      position: absolute;
+      width: 198px;
+      height: calc(100% - 100px);
+      right: 0;
+      top: 70px;
     }
   }
 }
