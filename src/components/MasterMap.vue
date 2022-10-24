@@ -3,12 +3,12 @@
     <div class="layer-tools"><LayerTools></LayerTools></div>
     <div class="tool">
       <el-button @click="addLayers" type="primary">加载图层</el-button>
-      <el-button @click="removeLayers" type="primary">删除图层</el-button>
+      <!-- <el-button @click="removeLayers" type="primary">删除图层</el-button> -->
     </div>
   </div>
 </template>
-    
-    <script>
+
+<script>
 import geoJson from "@/api/mapJson";
 import { getAllAndroidPlugins, getList } from "@/api/qinqiu";
 
@@ -42,7 +42,6 @@ export default {
         zoom: 5,
       });
 
-      let url = "/geoserver/gwc/service/wmts";
       L.tileLayer
         .chinaProvider("Geoq.Normal.Map", {
           attribution:
@@ -50,25 +49,29 @@ export default {
         })
         .addTo(this.map);
 
-      var matrixIds = [];
-      for (var i = 0; i < 22; ++i) {
-        matrixIds[i] = {
-          identifier: "" + i,
-          topLeftCorner: new L.LatLng(90, -180),
-        };
-      }
+      this.map.on("click", (e)=>{
+        console.log(e)
+      });
 
-      var wmtsOptionsMap = {
-        layer: "territory:farmland", //瓦片地图名称
-        tilematrixSet: "EPSG:4326", //GeoServer使用的网格名称
-        tileSize: 256, //切片大小
-        format: "image/png",
-        maxZoom: 33,
-        minZoom: 10,
-        matrixIds: matrixIds,
-      };
-      var wmtsMap = new L.TileLayer.WMTS(url, wmtsOptionsMap);
-      this.map.addLayer(wmtsMap);
+      // let url = "/geoserver/gwc/service/wmts";
+      // var matrixIds = [];
+      // for (var i = 0; i < 22; ++i) {
+      //   matrixIds[i] = {
+      //     identifier: "" + i,
+      //     topLeftCorner: new L.LatLng(90, -180),
+      //   };
+      // }
+      // var wmtsOptionsMap = {
+      //   layer: "territory:farmland", //瓦片地图名称
+      //   tilematrixSet: "EPSG:4326", //GeoServer使用的网格名称
+      //   tileSize: 256, //切片大小
+      //   format: "image/png",
+      //   maxZoom: 33,
+      //   minZoom: 10,
+      //   matrixIds: matrixIds,
+      // };
+      // var wmtsMap = new L.TileLayer.WMTS(url, wmtsOptionsMap);
+      // this.map.addLayer(wmtsMap);
     },
     addLayers() {
       // let arr = [
@@ -106,8 +109,8 @@ export default {
   },
 };
 </script>
-      
-    <style lang="scss" scoped>
+
+<style lang="scss" scoped>
 .map-box {
   height: 100%;
   z-index: 0;
@@ -127,4 +130,3 @@ export default {
   }
 }
 </style>
-    
