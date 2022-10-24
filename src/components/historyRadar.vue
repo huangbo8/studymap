@@ -59,7 +59,7 @@ export default {
 .history-box {
   height: 100%;
   background: rgba(255, 255, 255, 0.8);
-  box-shadow: 15px 0px 5px rgb(85 85 85 / 30%);
+  box-shadow: 0 3px 14px rgb(0 0 0 / 40%);
   > header {
     height: 33px;
     line-height: 33px;

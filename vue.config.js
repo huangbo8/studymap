@@ -30,6 +30,26 @@ module.exports = defineConfig({
                 //     "^/yshjapi": "",
                 // },
             },
+            "/geoserver": {
+                target: "http://218.77.58.22:28088",
+                ws: true,
+                secure: false,
+                changeOrigin: true,
+                // pathRewrite: {
+                //     "^/yshjapi": "",
+                // },
+            },
+            "/wmts": {
+                target: "https://e.s2maps-tiles.eu",
+                ws: true,
+                secure: false,
+                changeOrigin: true,
+                // pathRewrite: {
+                //     "^/yshjapi": "",
+                // },
+            },
+            // /wmts
+            // geoserver
         },
     },
 

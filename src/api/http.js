@@ -13,8 +13,8 @@ export const Service = axios.create({
     })
     // 添加请求拦截器
 Service.interceptors.request.use(config => {
-
-        config.headers['X-Gistack-token'] = 'eyJraWQiOiJrMSIsImFsZyI6IlJTMjU2In0.eyJpc3MiOiJhZG1pbkBnaXN1bmkuY29tIiwiYXVkIjoidXVtcyIsImV4cCI6MTY2Njg4MDc2OSwianRpIjoiSXBQT19YU1d6bHFWdGJfZE1HbzJ2QSIsImlhdCI6MTY2NjI3NTk2OSwibmJmIjoxNjY2Mjc1NjY5LCJzdWIiOiJ4aWFvd2FuZyIsImlkIjoiNDAyOGEwMWM3NGNhMGY0NTAxNzRkOGJiYmMwMTY1ZmUiLCJuYW1lIjoieGlhb3dhbmciLCJ0eXBlIjoiMCIsImNsaWVudGlkIjpudWxsLCJmcm9tIjoidXVtcyIsImV4cGlyZXMiOiIxNjY2ODgwNzY5MzMxIiwicm9sZXMiOlsicmVxX3JlcG9ydCJdfQ.jeJTKYfLASuZzqZLq9g61H3VwwTuDtTV66qPKQlfYeOuMzmSnWJFfECDjTSRAaf4blG0hs_MuNOyoZW079mH0ghuCUoVBn0NYrsCEt6SpOkQDdhK2HHRaKy1TbOHG0eqvcmQbUOKT6Ko2B7oqdqCIoEJ9rjw2oIjbmC4TCQ3lPTkaIEEln07yZHxbnLU_wz-PN62Cqj_UgnYnvhdL7Z6JsLB33L-AE7RUDpq6bdefV4RghxBz_b4EW7XBDaTGVAUbQgx1VHAT9jJMJgRgRA3234_lka5CdWPJSLeVAg_FqselB-9jtERvOFGV9x3dyjmIL9kZdykZ3Qw0uFfqHjiJg'
+        // debugger
+        // config.headers['X-Gistack-token'] = 'eyJraWQiOiJrMSIsImFsZyI6IlJTMjU2In0.eyJpc3MiOiJhZG1pbkBnaXN1bmkuY29tIiwiYXVkIjoidXVtcyIsImV4cCI6MTY2Njg4MDc2OSwianRpIjoiSXBQT19YU1d6bHFWdGJfZE1HbzJ2QSIsImlhdCI6MTY2NjI3NTk2OSwibmJmIjoxNjY2Mjc1NjY5LCJzdWIiOiJ4aWFvd2FuZyIsImlkIjoiNDAyOGEwMWM3NGNhMGY0NTAxNzRkOGJiYmMwMTY1ZmUiLCJuYW1lIjoieGlhb3dhbmciLCJ0eXBlIjoiMCIsImNsaWVudGlkIjpudWxsLCJmcm9tIjoidXVtcyIsImV4cGlyZXMiOiIxNjY2ODgwNzY5MzMxIiwicm9sZXMiOlsicmVxX3JlcG9ydCJdfQ.jeJTKYfLASuZzqZLq9g61H3VwwTuDtTV66qPKQlfYeOuMzmSnWJFfECDjTSRAaf4blG0hs_MuNOyoZW079mH0ghuCUoVBn0NYrsCEt6SpOkQDdhK2HHRaKy1TbOHG0eqvcmQbUOKT6Ko2B7oqdqCIoEJ9rjw2oIjbmC4TCQ3lPTkaIEEln07yZHxbnLU_wz-PN62Cqj_UgnYnvhdL7Z6JsLB33L-AE7RUDpq6bdefV4RghxBz_b4EW7XBDaTGVAUbQgx1VHAT9jJMJgRgRA3234_lka5CdWPJSLeVAg_FqselB-9jtERvOFGV9x3dyjmIL9kZdykZ3Qw0uFfqHjiJg'
             //   loadingInstance = Loading.service({
             //     lock: true,
             //     text: 'loading...'

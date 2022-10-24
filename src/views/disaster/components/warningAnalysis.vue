@@ -28,9 +28,6 @@
         <el-button size="small" plain>
           <i class="el-icon-search"></i> 查询</el-button
         >
-        <el-button size="small" plain>
-          <i class="el-icon-upload"></i> 导出</el-button
-        >
       </div>
     </div>
 
@@ -57,6 +54,7 @@
         <el-table-column align="center" label="操作">
           <template v-slot="scope">
             <i class="el-icon-view examine" @click="handleClick(scope.row)"></i>
+            <i class="el-icon-upload examine" @click="handleClick(scope.row)"></i>
           </template>
         </el-table-column>
       </el-table>
@@ -64,7 +62,7 @@
 
     <div class="pagination-box">
       <el-pagination
-      @row-click="rowClick"
+        @row-click="rowClick"
         small
         background
         @size-change="handleSizeChange"
@@ -190,7 +188,7 @@ export default {
           address: "上海市普陀区金沙江路 1516 弄",
         },
       ],
-      currentPage:1
+      currentPage: 1,
     };
   },
   methods: {

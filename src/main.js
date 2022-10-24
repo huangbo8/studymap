@@ -6,22 +6,24 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import * as L from "leaflet";
 import * as esri from 'esri-leaflet'
+import * as GeoServer from 'leaflet-geoserver-request'
+import 'leaflet.wmts'
 import 'leaflet/dist/leaflet.css'
 import 'leaflet.pm'
 import 'leaflet.pm/dist/leaflet.pm.css'
 import 'leaflet.chinatmsproviders'
 import map from './map/map'
-import testMap from './map/testMap'
+import mapCommon from './map/mapCommon'
 import 'ol/ol.css'
 import * as echarts from 'echarts';
 
 Vue.use(ElementUI);
 Vue.prototype.$map = map
-Vue.prototype.$testMap = testMap
+L.esri = esri
+L.GeoServer = GeoServer
 Vue.L = Vue.prototype.$L = L;
 Vue.L = Vue.prototype.$echarts = echarts;
-L.esri = esri
-
+Vue.prototype.$mapCommon = mapCommon
 
 Vue.config.productionTip = false
 

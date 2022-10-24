@@ -131,7 +131,7 @@ export default {
     height: calc(100% - 80px);
 
     .sidebar-retract {
-      left: -20% !important;
+      left: -25% !important;
       transition: left 0.3s;
     }
     > aside {
@@ -139,11 +139,11 @@ export default {
       left: 0;
       top: 0;
       height: 100%;
-      width: 20%;
+      width: 25%;
       background: #fff;
       z-index: 999;
       transition: left 0.3s;
-      box-shadow: 15px 0px 5px rgb(85 85 85 / 30%);
+      box-shadow: 0 3px 14px rgb(0 0 0 / 40%);
       .flexible {
         position: absolute;
         top: 50%;

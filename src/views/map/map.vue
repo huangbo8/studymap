@@ -45,7 +45,6 @@ export default {
         .openPopup();
     },
     addLayers() {
-      var icon = L.icon(this.icon);
       this.$testMap.addMapLayers(this.map, {
         url: this.featureLayerURL,
         pointToLayer: function (geojson, latlng) {
