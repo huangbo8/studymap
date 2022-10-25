@@ -34,6 +34,7 @@ export default {
           url: "http://192.168.0.112:8080/geoserver/mydata/wms",
           option: {
             layers: "mydata:CHN_adm3_xian",
+            geometry_name: "the_geom",
           },
           // children: [
           //   {
@@ -49,6 +50,7 @@ export default {
           url: "http://218.77.58.22:28088/geoserver/territory/wms",
           option: {
             layers: "territory:farmland",
+            geometry_name: "wkb_geometry",
           },
         },
       ],

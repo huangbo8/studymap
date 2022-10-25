@@ -7,18 +7,13 @@
       ></LayerTools>
     </div>
     <div class="tool">
-      <!-- <el-button @click="addLayers" type="primary">加载图层</el-button> -->
-      <!-- <el-button @click="addMapLayers" type="primary">加载arcgis</el-button> -->
-      <!-- <el-button @click="query" type="primary">查询</el-button> -->
-      <!-- <el-button @click="removeLayers" type="primary">删除图层</el-button> -->
     </div>
   </div>
 </template>
 
 <script>
 import geoJson from "@/api/mapJson";
-import { getAllAndroidPlugins, getList, getLayersInfo } from "@/api/qinqiu";
-
+import { getLayersInfo } from "@/api/qinqiu";
 import LayerTools from "@/components/LayerTools.vue";
 
 export default {
@@ -37,6 +32,18 @@ export default {
         popupAnchor: [0, -11],
       },
       geoServerLayersGroup: null,
+      wfsParam: {
+        service: "WFS",
+        version: "1.0.0",
+        request: "GetFeature",
+        // typeName: "territory:farmland",
+        outputFormat: "application/json",
+        maxFeatures: 1,
+        // CQL_FILTER: `CONTAINS(the_geom,SRID=4326;POINT(${latlng.lng} ${latlng.lat}))`,
+        // CQL_FILTER: `CONTAINS(wkb_geometry,SRID=4326;POINT(${latlng.lng} ${latlng.lat}))`,
+        // srsName: "EPSG:4326",
+        // BBOX: "111.56410217285156,42.23075866699219,111.70280456542969,42.36946105957031",
+      },
     };
   },
   mounted() {
@@ -61,9 +68,9 @@ export default {
       this.map.on("click", (e) => {
         let group = this.geoServerLayersGroup.getLayers();
         if (group && group.length > 0) {
-          console.log(group);
-          console.log(e);
-          this.query(e.latlng)
+          // console.log(group);
+          // console.log(e);
+          this.query(e.latlng, group);
         }
       });
 
@@ -111,33 +118,27 @@ export default {
     removeGeoServerLayers(layersData) {
       for (let item of this.geoServerLayersGroup.getLayers()) {
         if (item.options.layers == layersData.option.layers) {
-          console.log(item.options.layers);
-          console.log(layersData.option.layers);
-          console.log(item);
           this.geoServerLayersGroup.removeLayer(item);
         }
       }
     },
-    query(latlng) {
-      let url = "http://218.77.58.22:28088/geoserver/territory/wms";
-      var param = {
-        service: "WFS",
-        version: "1.0.0",
-        request: "GetFeature",
-        typeName: "territory:farmland",
-        outputFormat: "application/json",
-        maxFeatures: 1,
-        CQL_FILTER: `CONTAINS(the_geom,SRID=4326;POINT(${latlng.lng} ${latlng.lat}))`,
-        // CQL_FILTER: `CONTAINS(wkb_geometry,SRID=4326;POINT(${latlng.lng} ${latlng.lat}))`,
-
-        // srsName: "EPSG:4326",
-        // BBOX: "111.56410217285156,42.23075866699219,111.70280456542969,42.36946105957031",
-      };
-
-      getLayersInfo(url, param).then(({ features }) => {
-        console.log(features);
-        // let feature = features[0]
-      });
+    async query(latlng, group) {
+      // console.log(group);
+      let reverseGroup = group.reverse();
+      for (let i = 0; i < reverseGroup.length; i++) {
+        let item = reverseGroup[i];
+        let index = item._url.indexOf("wms");
+        let url = item._url.slice(0, index) + "wfs";
+        let res = await getLayersInfo(url, {
+          ...this.wfsParam,
+          typeName: item.wmsParams.layers,
+          CQL_FILTER: `CONTAINS(${item.wmsParams.geometry_name},SRID=4326;POINT(${latlng.lng} ${latlng.lat}))`,
+        });
+        if (res && res.features.length > 0) {
+          console.log(item);
+          break;
+        }
+      }
     },
   },
 };
