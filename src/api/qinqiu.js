@@ -22,6 +22,14 @@ export function getList(data) {
     })
 }
 
+export function getLayersInfo(url, data) {
+    return Service({
+        url,
+        method: 'get',
+        params: data
+    })
+}
+
 // export function addNewAndroidPlugin(data) {
 //   return Service({
 //     url: '/manager/addAndroidPlguin',

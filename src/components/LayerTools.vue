@@ -12,6 +12,7 @@
       :default-expanded-keys="[2, 3]"
       :default-checked-keys="[5]"
       :props="defaultProps"
+      @check-change="handleCheckChange"
     >
     </el-tree>
     <div class="layer-box" slot="reference" @click="isShow = !isShow">
@@ -29,51 +30,26 @@ export default {
       layerData: [
         {
           id: 1,
-          label: "一级 1",
-          children: [
-            {
-              id: 4,
-              label: "二级 1-1",
-              children: [
-                {
-                  id: 9,
-                  label: "三级 1-1-1",
-                },
-                {
-                  id: 10,
-                  label: "三级 1-1-2",
-                },
-              ],
-            },
-          ],
+          label: "图层1",
+          url: "http://192.168.0.112:8080/geoserver/mydata/wms",
+          option: {
+            layers: "mydata:CHN_adm3_xian",
+          },
+          // children: [
+          //   {
+          //     id: 4,
+          //     label: "二级 1-1",
+
+          //   },
+          // ],
         },
         {
           id: 2,
-          label: "一级 2",
-          children: [
-            {
-              id: 5,
-              label: "二级 2-1",
-            },
-            {
-              id: 6,
-              label: "二级 2-2",
-            },
-          ],
-        },
-        {
-          id: 3,
-          label: "一级 3",
-          children: [
-            {
-              id: 7,
-              label: "二级 3-1",
-            },
-            {
-              id: 8,
-              label: "二级 3-2",
-            },
-          ],
+          label: "图层2",
+          url: "http://218.77.58.22:28088/geoserver/territory/wms",
+          option: {
+            layers: "territory:farmland",
+          },
         },
       ],
       defaultProps: {
@@ -83,7 +59,16 @@ export default {
       isShow: false,
     };
   },
-  methods: {},
+  methods: {
+    handleCheckChange(data, checked, indeterminate) {
+      if (checked) {
+        this.$emit("addGeoServerLayers", data);
+      } else {
+        this.$emit("removeGeoServerLayers", data);
+      }
+      // debugger
+    },
+  },
   async mounted() {},
 };
 </script>
