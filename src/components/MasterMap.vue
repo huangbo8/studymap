@@ -6,8 +6,7 @@
         @removeGeoServerLayers="removeGeoServerLayers"
       ></LayerTools>
     </div>
-    <div class="tool">
-    </div>
+    <div class="tool"></div>
   </div>
 </template>
 
@@ -65,7 +64,35 @@ export default {
         })
         .addTo(this.map);
 
+      var latlngs = [
+        //线中点的经纬度点
+        [38, 0],
+        [38, 180],
+        [0, 0],
+      ];
+      // let polyline = L.polyline(latlngs, {//创建一条折线
+      // 		color: 'red',//线的颜色
+      // 		weight: 3 ,//线的粗细
+      // 		// interactive: false,
+      // }).addTo(this.map);//放入地图/图层中
+
+      // polyline.on('mouseover',(e)=>{//绑定事件
+      // 	polyline.setStyle({weight:6,color:'green'})
+      // })
+
+      // let wms = L.Geoserver.wms(
+      //   "http://218.77.58.22:28088/geoserver/territory/wms",
+      //   {
+      //     layers: "territory:farmland",
+      //     geometry_name: "wkb_geometry",
+      //   }
+      // ).addTo(this.map);
+
       this.map.on("click", (e) => {
+        // ${latlng.lng} ${latlng.lat}
+        // this.map.setView([e.latlng.lng, e.latlng.lat])
+        // this.map.flyTo([e.latlng.lat, e.latlng.lng])
+        // this.map.flyToBounds(this.geoServerLayersGroup);
         let group = this.geoServerLayersGroup.getLayers();
         if (group && group.length > 0) {
           // console.log(group);
@@ -73,6 +100,15 @@ export default {
           this.query(e.latlng, group);
         }
       });
+
+      this.geoServerLayersGroup.on("remove", (e) => {
+        debugger;
+      });
+
+      // this.map.on('layeradd',(layer) =>{
+
+      //   // debugger
+      // })
 
       // let url = "/geoserver/gwc/service/wmts";
       // var matrixIds = [];
