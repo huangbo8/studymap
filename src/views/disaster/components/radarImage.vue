@@ -52,7 +52,8 @@
             />
             <i
               class="el-icon-view examine"
-              @click.stop="handleClick(scope.row)"
+              :style="{ color: scope.row.imgShow ? '#377ee8' : '' }"
+              @click.stop="imageShow(scope.row)"
             ></i>
           </template>
         </el-table-column>
@@ -78,7 +79,7 @@
 
 <script>
 import { color } from "echarts";
-
+import disasterBus from "@/components/bus/disasterBus";
 export default {
   //   components: { LayerTools },
   data() {
@@ -89,81 +90,13 @@ export default {
           date: "2016-05-02",
           name: "王小虎",
           address: "上海市普陀区金沙江路 1518 弄",
+          imgShow: false,
         },
         {
           date: "2016-05-04",
-          name: "王小虎",
+          name: "李大豹",
           address: "上海市普陀区金沙江路 1517 弄",
-        },
-        {
-          date: "2016-05-01",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1519 弄",
-        },
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1516 弄",
-        },
-        {
-          date: "2016-05-02",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-04",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1517 弄",
-        },
-        {
-          date: "2016-05-01",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1519 弄",
-        },
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1516 弄",
-        },
-        {
-          date: "2016-05-02",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-04",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1517 弄",
-        },
-        {
-          date: "2016-05-01",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1519 弄",
-        },
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1516 弄",
-        },
-        {
-          date: "2016-05-02",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-04",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1517 弄",
-        },
-        {
-          date: "2016-05-01",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1519 弄",
-        },
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1516 弄",
+          imgShow: false,
         },
       ],
       currentPage: 1,
@@ -178,7 +111,13 @@ export default {
       console.log(`当前页: ${val}`);
     },
     rowClick(row) {
-      this.$parent.tableDataLocation([28.12, 112.59]);
+      disasterBus.$emit("mapLocation", [28.12, 112.59]);
+
+      // this.$parent.tableDataLocation([28.12, 112.59]);
+    },
+    imageShow(row) {
+      row.imgShow = !row.imgShow;
+      disasterBus.$emit("imageShow", row);
     },
   },
   async mounted() {},

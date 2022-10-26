@@ -79,9 +79,6 @@ export default {
       this.historyRadarShow = true;
       this.$refs.ImageParticulars.dialogTableVisible = true;
     },
-    tableDataLocation(latlng) {
-      this.$refs.MasterMap.mapLocation(latlng)
-    },
   },
   async mounted() {},
 };

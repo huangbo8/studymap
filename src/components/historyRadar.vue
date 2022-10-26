@@ -6,7 +6,7 @@
     </header>
     <ul>
       <li>
-        <img src="@/assets/imgs/imgtest.webp" alt="" />
+        <img @click="imageInfo" src="@/assets/imgs/imgtest.webp" alt="" />
         <span>2022-10-13</span>
       </li>
       <li>
@@ -50,7 +50,11 @@ export default {
   data() {
     return {};
   },
-  methods: {},
+  methods: {
+    imageInfo(data) {
+      this.$parent.imageInfo();
+    },
+  },
   async mounted() {},
 };
 </script>

@@ -37,6 +37,7 @@ export default {
           option: {
             layers: "mydata:CHN_adm3_xian",
             geometry_name: "the_geom",
+            interactive:true
           },
           // children: [
           //   {
@@ -53,6 +54,7 @@ export default {
           option: {
             layers: "territory:farmland",
             geometry_name: "wkb_geometry",
+            interactive:true
           },
         },
       ],

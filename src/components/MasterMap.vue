@@ -14,7 +14,7 @@
 import geoJson from "@/api/mapJson";
 import { getLayersInfo } from "@/api/qinqiu";
 import LayerTools from "@/components/LayerTools.vue";
-
+import disasterBus from "@/components/bus/disasterBus";
 export default {
   name: "MasterMap",
   components: { LayerTools },
@@ -32,6 +32,7 @@ export default {
       layers: null,
       geoServerLayersGroup: null,
       geoServerPopup: null,
+      imageThumbnailGroup: null,
       wfsParam: {
         service: "WFS",
         version: "1.0.0",
@@ -48,15 +49,26 @@ export default {
   },
   mounted() {
     this.createMap();
+
+    //列表相关组件对地图操作的事件注册
+    disasterBus.$on("imageShow", (data) => {
+      this.imageShow(data);
+    });
+    disasterBus.$on("mapLocation", (data) => {
+      this.mapLocation(data);
+    });
   },
   methods: {
     createMap() {
       this.map = L.map("masterMap", {
-        center: [28.12, 112.59],
+        center: [28.932444755, 112.547377999],
         zoom: 5,
       });
 
       this.geoServerLayersGroup = L.layerGroup().addTo(this.map);
+      this.imageThumbnailGroup = L.layerGroup().addTo(this.map);
+
+      // imageThumbnailGroup
 
       L.tileLayer
         .chinaProvider("Geoq.Normal.Map", {
@@ -65,12 +77,12 @@ export default {
         })
         .addTo(this.map);
 
-      var latlngs = [
-        //线中点的经纬度点
-        [38, 0],
-        [38, 180],
-        [0, 0],
-      ];
+      // var latlngs = [
+      //   //线中点的经纬度点
+      //   [38, 0],
+      //   [38, 180],
+      //   [0, 0],
+      // ];
       // let polyline = L.polyline(latlngs, {//创建一条折线
       // 		color: 'red',//线的颜色
       // 		weight: 3 ,//线的粗细
@@ -103,7 +115,7 @@ export default {
 
       // this.map.on('layeradd',(layer) =>{
 
-      //   // debugger
+      //
       // })
 
       // let url = "/geoserver/gwc/service/wmts";
@@ -128,6 +140,10 @@ export default {
     },
     addGeoServerLayers(layersData) {
       let wms = L.Geoserver.wms(layersData.url, layersData.option);
+      wms.on("click", (e) => {
+        debugger;
+      });
+      debugger;
       this.geoServerLayersGroup.addLayer(wms);
       // this.$mapCommon.addGeoServerWMS(
       //   this.map, //当前地图
@@ -199,6 +215,28 @@ export default {
         .setLatLng(latlng)
         .setContent("<p>有数据</p>")
         .openOn(this.map);
+    },
+    imageShow(row) {
+      if (row.imgShow) {
+        var imageUrl =
+          "https://img.net/v1/file/download?id=GF1_PMS2_E112.9_N29.6_20220523_L1A0006487068-MSS2_thumb&acl=22222222-2222-4222-a222-222222222222eyJraWQiOiJrMSIsImFsZyI6IlJTMjU2In0.eyJpc3MiOiJhZG1pbkBnaXN1bmkuY29tIiwiYXVkIjoidXVtcyIsImV4cCI6MTY2NzM3MjU4OCwianRpIjoiRUtUbFJKRUdpZ3VpVWpXVHBPTXNyZyIsImlhdCI6MTY2Njc2Nzc4OCwibmJmIjoxNjY2NzY3NDg4LCJzdWIiOiJzdXBlciIsImlkIjoic3VwZXIiLCJuYW1lIjoic3VwZXIiLCJ0eXBlIjoiMiIsImNsaWVudGlkIjpudWxsLCJmcm9tIjoidXVtcyIsImV4cGlyZXMiOiIxNjY3MzcyNTg4MzIzIiwicm9sZXMiOlsiQ0FUQUxPR19XUklURVIiLCJ0Y2JyeSIsIlJPTEVfU1VQRVIiLCJyZXFfcmVwb3J0IiwieHh0cSIsImd5Z2x5Iiwib21NYW5hZ2VyIl19.NK_SC-pY0K8SxY8fWFRIGBJoQ_G3tZ6A_ubVH_Rrp7KOqrc6rIQ-x6PU_YlXSU4l5qKwbz7SI7H8Ylgha_xkcDyeuVh1sw59m7luxuiCyvf-x9JmFEDjZ0wee6Xx3-fyeXqHG2a_GnhnBm5_sD8xoHmucNxecu7iKiI-aQJASE8nOLAruZdzSnCPgvVJgkXFXbOVWRZjWZbMU-6Am0pr-pb9pI-eor8vS9POBb7RKcp8EujFSTE-RbhGw1lGzw67aNm1gkmRQ4yvOnFIm_kMQP96Lr5zmLB1tsT_vn8CeYd6XXW40Ks-E_vL1d2hp1SOsoMtyMIH6N5c5IkGw5s1sw&isPreview=true&imagetype=3";
+        let corner1 = L.latLng(28.932444755, 112.547377999);
+        let corner2 = L.latLng(30.12990748, 113.968560462);
+        let bounds = L.latLngBounds(corner1, corner2);
+        let imageOverlay = L.imageOverlay(imageUrl, bounds, {
+          interactive: true,
+          address: row.name,
+        });
+        console.log(imageOverlay);
+        imageOverlay.on("click", (e) => {
+          console.log(e.target.options.address);
+        });
+        this.imageThumbnailGroup.addLayer(imageOverlay);
+      } else {
+        for (let item of this.imageThumbnailGroup.getLayers()) {
+          if (item.options.address == row.name) this.map.removeLayer(item);
+        }
+      }
     },
   },
 };
