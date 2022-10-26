@@ -46,11 +46,11 @@
         </el-table-column>
         <el-table-column align="center" prop="name" label="线路名称">
         </el-table-column>
-        <el-table-column align="center" label="操作">
+        <!-- <el-table-column align="center" label="操作">
           <template v-slot="scope">
             <i class="el-icon-view examine" @click="handleClick(scope.row)"></i>
           </template>
-        </el-table-column>
+        </el-table-column> -->
       </el-table>
     </div>
 
@@ -192,7 +192,7 @@ export default {
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`);
     },
-    rowClick(row) {},
+    rowClick(row) {this.$parent.tableDataLocation([28.12, 112.59]);},
   },
   async mounted() {},
 };

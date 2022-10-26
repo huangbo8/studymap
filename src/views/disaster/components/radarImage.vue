@@ -45,12 +45,15 @@
         <el-table-column align="center" label="操作">
           <template v-slot="scope">
             <img
-              @click="$emit('imageInfo', scope.row)"
+              @click.stop="$emit('imageInfo', scope.row)"
               class="striograph"
               src="@/assets/imgs/imgtest.webp"
               alt=""
             />
-            <i class="el-icon-view examine" @click="handleClick(scope.row)"></i>
+            <i
+              class="el-icon-view examine"
+              @click.stop="handleClick(scope.row)"
+            ></i>
           </template>
         </el-table-column>
       </el-table>
@@ -174,7 +177,9 @@ export default {
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`);
     },
-    rowClick(row) {},
+    rowClick(row) {
+      this.$parent.tableDataLocation([28.12, 112.59]);
+    },
   },
   async mounted() {},
 };

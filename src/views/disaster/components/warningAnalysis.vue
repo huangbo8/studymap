@@ -33,6 +33,7 @@
 
     <div class="table-box">
       <el-table
+        @row-click="rowClick"
         height="100%"
         :data="tableData"
         stripe
@@ -53,8 +54,11 @@
         </el-table-column>
         <el-table-column align="center" label="操作">
           <template v-slot="scope">
-            <i class="el-icon-view examine" @click="handleClick(scope.row)"></i>
-            <i class="el-icon-upload examine" @click="handleClick(scope.row)"></i>
+            <!-- <i class="el-icon-view examine" @click="handleClick(scope.row)"></i> -->
+            <i
+              class="el-icon-upload examine"
+              @click.stop="handleClick(scope.row)"
+            ></i>
           </template>
         </el-table-column>
       </el-table>
@@ -62,7 +66,6 @@
 
     <div class="pagination-box">
       <el-pagination
-        @row-click="rowClick"
         small
         background
         @size-change="handleSizeChange"
@@ -199,7 +202,9 @@ export default {
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`);
     },
-    rowClick(row) {},
+    rowClick(row) {
+      this.$parent.tableDataLocation([28.12, 112.59]);
+    },
   },
   async mounted() {},
 };

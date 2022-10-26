@@ -1,10 +1,12 @@
 <template>
   <el-popover
+    class="box"
     placement="left-start"
     width="249"
     trigger="manual"
     v-model="isShow"
   >
+  <header>图层</header>
     <el-tree
       :data="layerData"
       show-checkbox
@@ -76,6 +78,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+header {
+  height: 30px;
+  line-height: 30px;
+  color: #fff;
+  background-color: rgba(58, 142, 230);
+  padding-left: 10px;
+  margin-bottom: 10px;
+}
 .layer-box {
   width: 35px;
   height: 35px;

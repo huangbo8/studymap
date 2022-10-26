@@ -20,17 +20,18 @@ export default {
   components: { LayerTools },
   data() {
     return {
+      // featureLayerURL:
+      //   "https://img.net/server001/rest/services/Hosted/a_20210512164917526_gcj02/FeatureServer/0",
+      // icon: {
+      //   iconUrl: "https://esri.github.io/esri-leaflet/img/earthquake-icon.png",
+      //   iconSize: [50, 50],
+      //   iconAnchor: [13.5, 17.5],
+      //   popupAnchor: [0, -11],
+      // },
       map: null,
       layers: null,
-      featureLayerURL:
-        "https://img.net/server001/rest/services/Hosted/a_20210512164917526_gcj02/FeatureServer/0",
-      icon: {
-        iconUrl: "https://esri.github.io/esri-leaflet/img/earthquake-icon.png",
-        iconSize: [50, 50],
-        iconAnchor: [13.5, 17.5],
-        popupAnchor: [0, -11],
-      },
       geoServerLayersGroup: null,
+      geoServerPopup: null,
       wfsParam: {
         service: "WFS",
         version: "1.0.0",
@@ -90,20 +91,15 @@ export default {
 
       this.map.on("click", (e) => {
         // ${latlng.lng} ${latlng.lat}
-        // this.map.setView([e.latlng.lng, e.latlng.lat])
-        // this.map.flyTo([e.latlng.lat, e.latlng.lng])
-        // this.map.flyToBounds(this.geoServerLayersGroup);
         let group = this.geoServerLayersGroup.getLayers();
         if (group && group.length > 0) {
           // console.log(group);
           // console.log(e);
-          this.query(e.latlng, group);
+          this.geoServerLayersQuery(e.latlng, group);
         }
       });
 
-      this.geoServerLayersGroup.on("remove", (e) => {
-        debugger;
-      });
+      this.geoServerLayersGroup.on("remove", (e) => {});
 
       // this.map.on('layeradd',(layer) =>{
 
@@ -158,8 +154,7 @@ export default {
         }
       }
     },
-    async query(latlng, group) {
-      // console.log(group);
+    async geoServerLayersQuery(latlng, group) {
       let reverseGroup = group.reverse();
       for (let i = 0; i < reverseGroup.length; i++) {
         let item = reverseGroup[i];
@@ -171,10 +166,39 @@ export default {
           CQL_FILTER: `CONTAINS(${item.wmsParams.geometry_name},SRID=4326;POINT(${latlng.lng} ${latlng.lat}))`,
         });
         if (res && res.features.length > 0) {
-          console.log(item);
+          this.geoServerPopup = L.popup()
+            .setLatLng([latlng.lat, latlng.lng])
+            .setContent("<p>有数据</p>")
+            .openOn(this.map);
           break;
         }
       }
+    },
+    mapLocation(latlng) {
+      // var latlngs = [
+      //   //线中点的经纬度点
+      //   [38, 0],
+      //   [38, 180],
+      //   [0, 0],
+      // ];
+      // let polyline = L.polyline(latlngs, {
+      //   //创建一条折线
+      //   color: "red", //线的颜色
+      //   weight: 3, //线的粗细
+      //   // interactive: false,
+      // }).addTo(this.map); //放入地图/图层中
+
+      // this.map.setView([e.latlng.lng, e.latlng.lat])
+      // this.map.flyTo([e.latlng.lat, e.latlng.lng])
+      // this.map.flyToBounds(this.geoServerLayersGroup);
+      // this.map.flyToBounds(polyline);
+      // this.map.flyToBounds(dian);
+
+      this.map.flyTo(latlng);
+      this.geoServerPopup = L.popup()
+        .setLatLng(latlng)
+        .setContent("<p>有数据</p>")
+        .openOn(this.map);
     },
   },
 };

@@ -30,12 +30,12 @@
         <WarningAnalysis v-if="cut == '预警分析'"></WarningAnalysis>
       </aside>
       <!-- 地图组件 -->
-      <MasterMap></MasterMap>
+      <MasterMap ref="MasterMap"></MasterMap>
       <!-- 历史雷达组件 -->
       <HistoryRadar v-if="historyRadarShow" class="location"></HistoryRadar>
 
       <!-- 雷达影像详情表格组件 -->
-      <ImageParticulars ref="imageParticulars"></ImageParticulars>
+      <ImageParticulars ref="ImageParticulars"></ImageParticulars>
     </main>
   </div>
 </template>
@@ -77,7 +77,10 @@ export default {
     flexible() {},
     imageInfo(row) {
       this.historyRadarShow = true;
-      this.$refs.imageParticulars.dialogTableVisible = true;
+      this.$refs.ImageParticulars.dialogTableVisible = true;
+    },
+    tableDataLocation(latlng) {
+      this.$refs.MasterMap.mapLocation(latlng)
     },
   },
   async mounted() {},
