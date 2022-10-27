@@ -43,13 +43,16 @@
         :page-size="20"
         layout="prev, pager, next"
         :total="10000"
+        prev-text="上一页"
+        next-text="下一页"
+        :pager-count="5"
       >
       </el-pagination>
     </div>
   </div>
 </template>
-    
-    <script>
+
+<script>
 import { getAllAndroidPlugins, getList } from "@/api/qinqiu";
 
 export default {
@@ -152,8 +155,8 @@ export default {
   async mounted() {},
 };
 </script>
-    
-    <style lang="scss" scoped>
+
+<style lang="scss" scoped>
 .content-box {
   height: 100%;
   .table-box {
@@ -161,16 +164,16 @@ export default {
     margin-bottom: 10px;
     ::v-deep {
       .el-table__row {
-        background-color: rgba(0, 0, 0, 0);
+        background-color: transparent;
         color: #cfd0d9;
         font-weight: 400;
         td {
-          background-color: rgba(0, 0, 0, 0) !important;
+          background-color: transparent !important;
         }
       }
       .el-table,
       .el-table--striped {
-        background-color: rgba(0, 0, 0, 0);
+        background-color: transparent;
       }
       .gutter {
         background-color: #060b62 !important;
@@ -184,11 +187,21 @@ export default {
   .pagination-box {
     text-align: right;
 
-    .el-pagination {
-      padding: 0 !important;
-      white-space: normal !important;
+    ::v-deep {
+      .el-pagination {
+        padding: 0 !important;
+        white-space: normal !important;
+        .el-pager li {
+          background-color: transparent;
+          color: #1d6fd0;
+        }
+        .btn-prev,
+        .btn-next {
+          background-color: transparent;
+          color: #1d6fd0;
+        }
+      }
     }
   }
 }
 </style>
-    
