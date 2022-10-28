@@ -1,7 +1,39 @@
 <template>
   <div class="content-box">
     <div ref="trendChart" class="chart"></div>
-    <div class="table"></div>
+    <div class="table">
+      <header>
+        <div>
+          <span>最大值</span>
+          <span>最小值</span>
+          <span>平均值</span>
+        </div>
+      </header>
+      <main>
+        <div class="legend">
+          <div><i style="background: #70b601"></i><span>一般关注</span></div>
+          <div><i style="background: #f59a23"></i><span>持续关注</span></div>
+          <div><i style="background: #d9001c"></i><span>重点关注</span></div>
+        </div>
+        <div class="form">
+          <ul class="row">
+            <li>123</li>
+            <li>123</li>
+            <li>123</li>
+          </ul>
+          <ul class="row">
+            <li>123</li>
+            <li>123</li>
+            <li>123</li>
+          </ul>
+          <ul class="row">
+            <li>123</li>
+            <li>123</li>
+            <li>123</li>
+          </ul>
+        </div>
+      </main>
+    </div>
   </div>
 </template>
 
@@ -65,30 +97,48 @@ export default {
           },
           series: [
             {
-              data: [820, 932, 901, 934, 1290, 1330, 1320],
+              data: [
+                820, 932, 901, 934, 1290, 1330, 1320, 1320, 1320, 1320, 1320,
+                1320,
+              ],
               type: "line",
               symbol: "none",
               smooth: true,
-              lineStyle: {
+              itemStyle: {
                 color: "#70B601",
               },
-            },
-            {
-              data: [120, 932, 901, 934, 1290, 300, 1320],
-              type: "line",
-              symbol: "none",
-              smooth: true,
               lineStyle: {
-                color: "#F59A23",
+                width: 3,
               },
             },
             {
-              data: [230, 932, 101, 934, 400, 1330, 1320],
+              data: [
+                120, 932, 901, 934, 1290, 300, 1320, 1320, 1320, 1320, 1320,
+                1320,
+              ],
               type: "line",
               symbol: "none",
               smooth: true,
+              itemStyle: {
+                color: "#F59A23",
+              },
               lineStyle: {
+                width: 3,
+              },
+            },
+            {
+              data: [
+                230, 932, 101, 934, 400, 1330, 1320, 1320, 1320, 1320, 1320,
+                1320,
+              ],
+              type: "line",
+              symbol: "none",
+              smooth: true,
+              itemStyle: {
                 color: "#D9001C",
+              },
+              lineStyle: {
+                width: 3,
               },
             },
           ],
@@ -138,15 +188,66 @@ export default {
 <style lang="scss" scoped>
 .content-box {
   height: 100%;
-  // display: flex;
-  // flex-direction: column;
   .chart {
     height: 70%;
-    // background-color: red;
   }
   .table {
-    background-color: green;
     height: 30%;
+    padding: 0 2% 2% 0;
+    box-sizing: border-box;
+    > header {
+      display: flex;
+      justify-content: flex-end;
+      height: 20px;
+      > div {
+        width: 60%;
+        display: flex;
+        > span {
+          width: 33.33%;
+          text-align: center;
+          color: #02a7f0;
+        }
+      }
+    }
+
+    > main {
+      height: calc(100% - 20px);
+      display: flex;
+      .legend {
+        width: 40%;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        flex-direction: column;
+        > div {
+          display: flex;
+          justify-content: center;
+          i {
+            height: 20px;
+            width: 30px;
+            margin-right: 10px;
+          }
+          span {
+            color: #ffffff;
+          }
+        }
+      }
+      .form {
+        width: 60%;
+        display: flex;
+        justify-content: space-around;
+        flex-direction: column;
+
+        .row {
+          display: flex;
+          > li {
+            width: 33.33%;
+            text-align: center;
+            color: #fff;
+          }
+        }
+      }
+    }
   }
 }
 </style>

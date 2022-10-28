@@ -181,6 +181,10 @@ export default {
       .is-center {
         border: none !important;
       }
+
+      .el-table::before {
+        display: none;
+      }
     }
   }
 
