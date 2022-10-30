@@ -2,14 +2,12 @@
     height: 100%;
     background: url("@/assets/imgs/homepage.png") center center no-repeat;
     background-size: 100% 100%;
-
     .homepage-header {
         box-sizing: border-box;
         position: relative;
         height: 15%;
         background: url("@/assets/imgs/homepage-header.png") center center no-repeat;
         background-size: 100% 100%;
-
         >h3 {
             text-align: center;
             color: #03b4f5;
@@ -20,7 +18,6 @@
             justify-content: center;
             flex-direction: column;
         }
-
         .tab-box {
             position: absolute;
             width: 35%;
@@ -28,7 +25,6 @@
             top: 35%;
             left: 1%;
             display: flex;
-
             >li {
                 width: 33.33%;
                 background: red;
@@ -37,7 +33,6 @@
                 background-size: 100% 100%;
                 color: #757f95;
                 cursor: pointer;
-
                 >span {
                     display: flex;
                     justify-content: center;
@@ -50,7 +45,31 @@
                 }
             }
         }
-
+        .system-info {
+            position: absolute;
+            width: 35%;
+            height: 55%;
+            top: 35%;
+            right: 1%;
+            display: flex;
+            justify-content: flex-end;
+            // background: red;
+            li {
+                margin-left: 20px;
+                display: flex;
+                align-items: center;
+                color: #fff;
+                .icon-size {
+                    font-size: 35px;
+                    cursor: pointer;
+                }
+            }
+            .date {
+                display: flex;
+                flex-direction: column;
+                justify-content: center
+            }
+        }
         .roll {
             position: absolute;
             left: 50%;
@@ -61,62 +80,52 @@
             padding: 0 10px;
             width: 35%;
             cursor: pointer;
-
             >i {
                 // font-size: 20px;
             }
         }
     }
-
     >main {
         box-sizing: border-box;
         height: 85%;
         padding: 0 1% 2% 1%;
         display: flex;
         justify-content: space-between;
-
         >div {
             height: 100%;
         }
-
         .left-box,
         .right-box {
             width: 23%;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-
             .category {
                 height: 48%;
                 border: 1px solid #36446d;
                 box-sizing: border-box;
-
                 >header {
                     height: 44px;
                     line-height: 44px;
                     background: url("@/assets/imgs/homepage-title.svg") no-repeat;
                     padding-left: 20px;
-
                     >span {
                         margin-left: 20px;
                         color: #51F4F3;
                         font-weight: 400;
                     }
                 }
-
                 .category-statistics {
                     height: calc(100% - 44px);
                 }
             }
         }
-
         .middle-box {
             width: 51%;
             background: green;
             background: url("@/assets/imgs/homepage-map.png") center center;
             background-size: 100% 100%;
         }
-
         // .right-box {
         // }
     }

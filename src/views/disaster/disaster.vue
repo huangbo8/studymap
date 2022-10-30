@@ -6,8 +6,8 @@
         <li
           v-for="item in tabData"
           :key="item.name"
-          :class="{ 'border-cut': item.name == cut }"
-          @click="skip(item.name)"
+          :class="{ 'border-cut': item.componentName == cut }"
+          @click="skip(item)"
         >
           {{ item.name }}
         </li>
@@ -22,12 +22,12 @@
         <!-- 雷达影像数据筛选组件 -->
         <RadarImage
           @imageInfo="imageInfo"
-          v-if="cut == '雷达影像'"
+          v-if="cut == 'radarImage'"
         ></RadarImage>
         <!-- 监测成果数据筛选组件 -->
-        <MonitorResults v-if="cut == '监测成果'"></MonitorResults>
+        <MonitorResults v-if="cut == 'monitorResults'"></MonitorResults>
         <!-- 预警分析数据筛选组件 -->
-        <WarningAnalysis v-if="cut == '预警分析'"></WarningAnalysis>
+        <WarningAnalysis v-if="cut == 'warningAnalysis'"></WarningAnalysis>
       </aside>
       <!-- 地图组件 -->
       <MasterMap ref="MasterMap"></MasterMap>
@@ -61,18 +61,18 @@ export default {
   data() {
     return {
       tabData: [
-        { name: "雷达影像" },
-        { name: "监测成果" },
-        { name: "预警分析" },
+        { name: "雷达影像", componentName: "radarImage" },
+        { name: "监测成果", componentName: "monitorResults" },
+        { name: "预警分析", componentName: "warningAnalysis" },
       ],
-      cut: "雷达影像",
+      cut: "",
       sidebarRetract: false,
       historyRadarShow: false,
     };
   },
   methods: {
-    skip(name) {
-      this.cut = name;
+    skip(item) {
+      this.cut = item.componentName;
     },
     flexible() {},
     imageInfo(row) {
@@ -80,7 +80,9 @@ export default {
       this.$refs.ImageParticulars.dialogTableVisible = true;
     },
   },
-  async mounted() {},
+  created() {
+    this.cut = this.$route.query.componentName;
+  },
 };
 </script>
 

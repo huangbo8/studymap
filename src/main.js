@@ -16,6 +16,7 @@ import map from './map/map'
 import mapCommon from './map/mapCommon'
 import 'ol/ol.css'
 import * as echarts from 'echarts';
+// import '@/api/flexRem' // icon
 
 Vue.use(ElementUI);
 Vue.prototype.$map = map
