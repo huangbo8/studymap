@@ -31,7 +31,7 @@
     </main>
   </div>
 </template>
-  
+
 <script>
 export default {
   data() {
@@ -59,6 +59,7 @@ export default {
   },
   methods: {
     jumpTo(key, keyPath) {
+      this.routingPath = key;
       this.$router.push({
         path: key,
       });
@@ -66,9 +67,9 @@ export default {
     },
     currentTab() {
       for (let i in this.routeData) {
-        if (this.routeData[i].path === window.location.pathname)
+        if (this.routeData[i].path === this.routingPath)
           this.tabName = this.routeData[i].name;
-        break;
+        // break;
       }
     },
   },
@@ -78,7 +79,7 @@ export default {
   },
 };
 </script>
-  
+
 <style lang="scss" scoped>
 .management-box {
   width: 100%;
@@ -112,11 +113,3 @@ export default {
   }
 }
 </style>
-
-  
-  
-  
-  
-  
-  
-  

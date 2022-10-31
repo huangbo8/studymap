@@ -23,10 +23,19 @@
         </li>
         <li>
           <el-badge :value="12" class="item">
-            <i style="color: #d81e07" class="el-icon-bell icon-size"></i>
+            <i
+              @click="$router.push('/management')"
+              style="color: #d81e07"
+              class="el-icon-bell icon-size"
+            ></i>
           </el-badge>
         </li>
-        <li><i class="el-icon-menu icon-size"></i></li>
+        <li>
+          <i
+            @click="$router.push('/management')"
+            class="el-icon-menu icon-size"
+          ></i>
+        </li>
       </ul>
 
       <div class="roll">

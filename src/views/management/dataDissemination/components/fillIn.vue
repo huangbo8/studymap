@@ -16,31 +16,48 @@
         <el-input v-model="formInline.user" placeholder="数据名称"></el-input>
       </el-form-item>
 
-      <el-form-item label="数据版本" prop="user">
+      <el-form-item tem label="数据版本" prop="user">
         <el-date-picker
           style="width: 100%"
-          v-model="formInline.time"
-          type="daterange"
-          range-separator="至"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期"
+          v-model="formInline.region"
+          type="date"
+          placeholder="选择日期"
         >
         </el-date-picker>
       </el-form-item>
 
+      <el-form-item label="数据版本" prop="user">
+        <el-select v-model="formInline.region" placeholder="数据类型">
+          <el-option label="区域一" value="shanghai"></el-option>
+          <el-option label="区域二" value="beijing"></el-option>
+        </el-select>
+      </el-form-item>
+
       <el-form-item label="数据类型" prop="user">
-        <el-select v-model="formInline.region" placeholder="活动区域">
+        <el-select v-model="formInline.region" placeholder="数据类型">
           <el-option label="区域一" value="shanghai"></el-option>
           <el-option label="区域二" value="beijing"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="状态" prop="user">
-        <el-select v-model="formInline.region" placeholder="活动区域">
-          <el-option label="区域一" value="shanghai"></el-option>
-          <el-option label="区域二" value="beijing"></el-option>
-        </el-select>
+
+      <el-form-item label="数据类型" prop="user">
+        <el-upload
+          class="upload-demo"
+          action="https://jsonplaceholder.typicode.com/posts/"
+          :on-preview="handlePreview"
+          :on-remove="handleRemove"
+          :before-remove="beforeRemove"
+          multiple
+          :limit="3"
+          :on-exceed="handleExceed"
+          :file-list="fileList"
+        >
+          <el-button size="small" type="primary">点击上传</el-button>
+          <div slot="tip" class="el-upload__tip">
+            只能上传jpg/png文件，且不超过500kb
+          </div>
+        </el-upload>
       </el-form-item>
-      <el-form-item> </el-form-item>
     </el-form>
 
     <span slot="footer" class="dialog-footer">
@@ -51,7 +68,7 @@
     </span>
   </el-dialog>
 </template>
-      
+
 <script>
 export default {
   data() {
@@ -104,6 +121,12 @@ export default {
         ],
         desc: [{ required: true, message: "请填写活动形式", trigger: "blur" }],
       },
+      fileList: [
+        // {
+        //   name: "food.jpeg",
+        //   url: "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100",
+        // }
+      ],
     };
   },
   methods: {
@@ -127,11 +150,27 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
+    handleRemove(file, fileList) {
+      console.log(file, fileList);
+    },
+    handlePreview(file) {
+      console.log(file);
+    },
+    handleExceed(files, fileList) {
+      this.$message.warning(
+        `当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${
+          files.length + fileList.length
+        } 个文件`   
+      );
+    },
+    beforeRemove(file, fileList) {
+      return this.$confirm(`确定移除 ${file.name}？`);
+    },
   },
 };
 </script>
-      
-  <style lang="scss" scoped>
+
+<style lang="scss" scoped>
 .content-box {
   height: 100%;
 }
