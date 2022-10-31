@@ -3,10 +3,7 @@
 </template>
     
     <script>
-// import geoJson from "../../../api/hunanMap";
-import geoJson from "@/api/hunanMap";
-
-// import geoJson from "@/api/mapJson";
+import geoJson from "@/utils/hunanMap";
 export default {
   name: "HomeView",
   components: {},

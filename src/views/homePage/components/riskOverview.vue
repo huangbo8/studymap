@@ -80,8 +80,56 @@
     </div>
     <div class="statistics">
       <div class="title">风险点城市排名</div>
-      <div class="roll">
-        <ul>
+      <div class="roll" ref="roll">
+        <ul ref="movingBox">
+          <li ref="liItem">
+            <div class="ranking">1</div>
+            <div class="place-name">长沙</div>
+            <div class="particulars">1200</div>
+            <div class="proportion"></div>
+          </li>
+          <li>
+            <div class="ranking">1</div>
+            <div class="place-name">长沙</div>
+            <div class="particulars">1200</div>
+            <div class="proportion"></div>
+          </li>
+          <li>
+            <div class="ranking">1</div>
+            <div class="place-name">长沙</div>
+            <div class="particulars">1200</div>
+            <div class="proportion"></div>
+          </li>
+          <li>
+            <div class="ranking">1</div>
+            <div class="place-name">长沙1</div>
+            <div class="particulars">1200</div>
+            <div class="proportion"></div>
+          </li>
+          <li>
+            <div class="ranking">1</div>
+            <div class="place-name">长沙1</div>
+            <div class="particulars">1200</div>
+            <div class="proportion"></div>
+          </li>
+          <li>
+            <div class="ranking">1</div>
+            <div class="place-name">长沙1</div>
+            <div class="particulars">1200</div>
+            <div class="proportion"></div>
+          </li>
+          <li>
+            <div class="ranking">1</div>
+            <div class="place-name">长沙</div>
+            <div class="particulars">1200</div>
+            <div class="proportion"></div>
+          </li>
+          <li>
+            <div class="ranking">1</div>
+            <div class="place-name">长沙</div>
+            <div class="particulars">1200</div>
+            <div class="proportion"></div>
+          </li>
           <li>
             <div class="ranking">1</div>
             <div class="place-name">长沙</div>
@@ -118,10 +166,33 @@ import { getAllAndroidPlugins, getList } from "@/api/qinqiu";
 export default {
   components: {},
   data() {
-    return {};
+    return {
+      page: 0,
+      rollHeigit: null,
+      capacity: null,
+    };
   },
-  methods: {},
-  async mounted() {},
+  methods: {
+    move() {
+      setInterval(() => {
+        let movingBox = this.$refs.movingBox;
+        let movingBoxHeight = Number(movingBox.offsetHeight);
+        let measure = movingBoxHeight / (this.capacity * 50);
+        this.page++;
+        if (this.page > measure - 1) {
+          this.page = 0;
+        }
+        movingBox.style.top = `-${this.page * (this.capacity * 50)}px`;
+      }, 3000);
+    },
+  },
+  async mounted() {
+    let roll = this.$refs.roll;
+    this.rollHeigit = Number(roll.clientHeight);
+    this.capacity = parseInt(this.rollHeigit / 50);
+    roll.style.height = `${this.capacity * 50}px`;
+    this.move();
+  },
 };
 </script>
 
@@ -136,7 +207,6 @@ export default {
     flex-direction: column;
     justify-content: space-between;
     overflow: hidden;
-    // background-color: red;
     .time {
       display: flex;
       justify-content: space-between;
@@ -152,7 +222,6 @@ export default {
         }
       }
     }
-
     .sum {
       color: #fff;
       .figure {
@@ -161,16 +230,11 @@ export default {
         font-weight: 700;
         margin: 0 10px;
       }
-      .unit {
-        // font-size: 1px;
-      }
     }
-
     .pillar {
       box-sizing: border-box;
       padding: 0 10px;
       display: flex;
-      // flex-direction: column-reverse;
       justify-content: space-between;
       li {
         width: 8px;
@@ -186,28 +250,26 @@ export default {
       }
     }
   }
-
   .statistics {
     height: 60%;
-    // background-color: green;
     .title {
-      // display: ;
       height: 40px;
       font-size: 16px;
       line-height: 40px;
       color: #fff;
     }
-
     .roll {
       position: relative;
       height: calc(100% - 30px);
       overflow: hidden;
-      // background: red;
       > ul {
         position: absolute;
+        top: 0;
+        left: 0;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        transition: top 0.5s;
         li {
           display: flex;
           height: 50px;
@@ -227,7 +289,6 @@ export default {
           .place-name {
             margin-right: 20px;
           }
-
           .particulars {
             margin-right: 10px;
           }
@@ -237,6 +298,12 @@ export default {
             background-color: rgba(2, 167, 240, 1);
             border-radius: 166px;
           }
+        }
+        li:nth-child(1) .ranking {
+          background: url("@/assets/imgs/first-rankin.svg") center center;
+        }
+        li:nth-child(2) .ranking {
+          background: url("@/assets/imgs/second-rankin.svg") center center;
         }
       }
     }

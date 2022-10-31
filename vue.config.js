@@ -57,6 +57,8 @@ module.exports = defineConfig({
         config.resolve.alias
             .set("@", resolve("src"))
             .set("@assets", resolve("src/assets"))
+            .set("@views", resolve("src/views"))
+            .set("@utils", resolve("src/utils"))
             .set("@api", resolve("src/api"))
             .set("@components", resolve("src/components"))
             .set("@public", resolve("public"));

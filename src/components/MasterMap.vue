@@ -11,7 +11,6 @@
 </template>
 
 <script>
-import geoJson from "@/api/mapJson";
 import { getLayersInfo } from "@/api/qinqiu";
 import LayerTools from "@/components/LayerTools.vue";
 import disasterBus from "@/components/bus/disasterBus";
