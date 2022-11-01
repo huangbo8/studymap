@@ -133,21 +133,54 @@ export default {
   methods: {
     createMap() {
       this.map = L.map("masterMap", {
-        center: [28.932444755, 112.547377999],
-        zoom: 5,
+        center: [24.96917, 111.7694],
+        zoom: 8,
+        crs: L.CRS.EPSG4326,
+        // crs: L.CRS.EPSG3857,
+        measureControl: true,
+        attributionControl: false,
       });
 
       this.geoServerLayersGroup = L.layerGroup().addTo(this.map);
       this.imageThumbnailGroup = L.layerGroup().addTo(this.map);
 
-      // imageThumbnailGroup
+      let url = "http://218.77.58.22:28088/geoserver/gwc/service/wmts";
+      var matrixIds = [];
+      for (var i = 0; i < 22; ++i) {
+        matrixIds[i] = {
+          identifier: "" + i,
+          topLeftCorner: new L.LatLng(90, -180),
+        };
+      }
 
-      L.tileLayer
-        .chinaProvider("Geoq.Normal.Map", {
-          attribution:
-            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        })
-        .addTo(this.map);
+      var wmtsOptionsMap = {
+        Version: "1.0.0",
+        Service: "WMTS",
+        layer: "territory:farmland", //瓦片地图名称
+        tilematrixSet: "EPSG:4326", //GeoServer使用的网格名称
+        tileSize: 256, //切片大小
+        styles: "normal",
+        format: "image/png",
+        service: "WMTS",
+        Request: "GetTile",
+        width: 256,
+        height: 256,
+        // matrixSet: gridNames,
+        // maxZoom: 33,
+        // minZoom: 10,
+        matrixIds: matrixIds,
+      };
+
+      var wmtsMap = new L.TileLayer.WMTS(url, wmtsOptionsMap);
+
+      this.map.addLayer(wmtsMap);
+
+      // L.tileLayer
+      //   .chinaProvider("Geoq.Normal.Map", {
+      //     attribution:
+      //       '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      //   })
+      //   .addTo(this.map);
 
       // var latlngs = [
       //   //线中点的经纬度点
@@ -172,52 +205,17 @@ export default {
       //     geometry_name: "wkb_geometry",
       //   }
       // ).addTo(this.map);
-
       this.map.on("click", (e) => {
-        // ${latlng.lng} ${latlng.lat}
         let group = this.geoServerLayersGroup.getLayers();
         if (group && group.length > 0) {
-          // console.log(group);
-          // console.log(e);
           this.geoServerLayersQuery(e.latlng, group);
         }
       });
-
-      this.geoServerLayersGroup.on("remove", (e) => {});
-
-      // this.map.on('layeradd',(layer) =>{
-
-      //
-      // })
-
-      // let url = "/geoserver/gwc/service/wmts";
-      // var matrixIds = [];
-      // for (var i = 0; i < 22; ++i) {
-      //   matrixIds[i] = {
-      //     identifier: "" + i,
-      //     topLeftCorner: new L.LatLng(90, -180),
-      //   };
-      // }
-      // var wmtsOptionsMap = {
-      //   layer: "territory:farmland", //瓦片地图名称
-      //   tilematrixSet: "EPSG:4326", //GeoServer使用的网格名称
-      //   tileSize: 256, //切片大小
-      //   format: "image/png",
-      //   maxZoom: 33,
-      //   minZoom: 10,
-      //   matrixIds: matrixIds,
-      // };
-      // var wmtsMap = new L.TileLayer.WMTS(url, wmtsOptionsMap);
-      // this.map.addLayer(wmtsMap);
+      // this.geoServerLayersGroup.on("remove", (e) => {});
     },
     addGeoServerLayers(layersData) {
       let wms = L.Geoserver.wms(layersData.url, layersData.option);
       this.geoServerLayersGroup.addLayer(wms);
-      // this.$mapCommon.addGeoServerWMS(
-      //   this.map, //当前地图
-      //   layersData.url, //图层地址
-      //   layersData.option //图层参数
-      // );
     },
 
     // addMapLayers(layersData) {
@@ -252,7 +250,23 @@ export default {
         if (res && res.features.length > 0) {
           this.geoServerPopup = L.popup()
             .setLatLng([latlng.lat, latlng.lng])
-            .setContent("<p>有数据</p>")
+            .setContent(
+              `
+        <header style="height: 30px;line-height: 30px;margin-bottom:15px;font-weight:600;font-size:18px">
+          杆塔
+        </header>
+        <ul>
+          <li style="height: 30px;line-height: 30px;width: 320px;">
+            <span style="min-width: 80px; text-align: left;font-weight:600;margin-right:10px;display: inline-block;">杆塔号</span>  
+            <span style="display: inline-block;">复奉线1231111111111111111111</span>  
+          </li>
+          <li style="height: 30px;line-height: 30px;width: 320px;">
+            <span style="min-width: 80px; text-align: left;font-weight:600;margin-right:10px;display: inline-block;">线路名称</span>  
+            <span style="display: inline-block;">复奉线1231111111111111111111</span>  
+          </li>
+        </ul>
+        `
+            )
             .openOn(this.map);
           break;
         }
@@ -281,7 +295,23 @@ export default {
       this.map.flyTo(latlng);
       this.geoServerPopup = L.popup()
         .setLatLng(latlng)
-        .setContent("<p>有数据</p>")
+        .setContent(
+          `
+        <header style="height: 30px;line-height: 30px;margin-bottom:15px;font-weight:600;font-size:18px">
+          杆塔
+        </header>
+        <ul>
+          <li style="height: 30px;line-height: 30px;width: 320px;">
+            <span style="min-width: 80px; text-align: left;font-weight:600;margin-right:10px;display: inline-block;">杆塔号</span>  
+            <span style="display: inline-block;">复奉线1231111111111111111111</span>  
+          </li>
+          <li style="height: 30px;line-height: 30px;width: 320px;">
+            <span style="min-width: 80px; text-align: left;font-weight:600;margin-right:10px;display: inline-block;">线路名称</span>  
+            <span style="display: inline-block;">复奉线1231111111111111111111</span>  
+          </li>
+        </ul>
+        `
+        )
         .openOn(this.map);
     },
     imageShow(row) {
@@ -311,7 +341,6 @@ export default {
       }
     },
     imageScope(scope) {
-      // var latlngs = this.imgGeo
       let arr = JSON.parse(JSON.stringify(this.imgGeo));
       for (let item of arr) {
         item.reverse();

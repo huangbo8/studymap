@@ -1,6 +1,7 @@
 <template>
   <div class="management-box">
     <nav>
+      <div class="logo-box" @click="$router.push('/')">地质灾害监测预警</div>
       <el-menu
         :default-active="routingPath"
         background-color="#000"
@@ -88,6 +89,16 @@ export default {
   > nav {
     width: 200px;
     background: #000;
+
+    .logo-box {
+      height: 100px;
+      color: #fff;
+      cursor: pointer;
+      font-size: 20px;
+      align-items: center;
+      justify-content: center;
+      display: flex;
+    }
     .el-menu {
       border: none;
     }

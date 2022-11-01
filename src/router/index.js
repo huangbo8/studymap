@@ -1,10 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomePage from '@/views/homePage/homePage'
-// import HomePage from '@/views/homePage/homePage'
-
 Vue.use(VueRouter)
-
 const routes = [{
     path: '/',
     name: 'home',
@@ -17,7 +14,6 @@ const routes = [{
     component: () =>
         import('@/views/management/management.vue'),
     children: [
-        //需要注意的是：子路由规则不要以/开头
         {
             path: 'notification', component: () =>
                 import('@/views/management/notification/notification.vue'),
@@ -34,32 +30,10 @@ const routes = [{
 
 },
 {
-    path: '/map',
-    name: 'map',
-    component: () =>
-        import('@/views/map/map.vue')
-},
-{
-    path: '/openLayers',
-    name: 'openLayers',
-    component: () =>
-        import('@/views/map/openLayers.vue')
-}, {
     path: '/leafletDraw',
     name: 'leafletDraw',
     component: () =>
         import('@/views/map/leafletDraw.vue')
-}, {
-    path: '/flex',
-    name: 'flex',
-    component: () =>
-        import('@/views/cssClass/flex.vue')
-},
-{
-    path: '/router',
-    name: 'router',
-    component: () =>
-        import('@/views/test/router.vue')
 },
 {
     path: '/disaster',

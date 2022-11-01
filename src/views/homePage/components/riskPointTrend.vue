@@ -39,7 +39,6 @@
 
 <script>
 import { getAllAndroidPlugins, getList } from "@/api/qinqiu";
-import geoJson from "@/api/mapJson";
 export default {
   components: {},
   data() {

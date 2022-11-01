@@ -25,8 +25,13 @@
         <el-button size="small" plain>
           <i class="el-icon-refresh"></i> 重置</el-button
         >
+
         <el-button size="small" plain>
           <i class="el-icon-search"></i> 查询</el-button
+        >
+
+        <el-button size="small" plain>
+          <i class="el-icon-upload"></i> 导出</el-button
         >
       </div>
     </div>
@@ -52,15 +57,14 @@
         </el-table-column>
         <el-table-column align="center" prop="date" label="状态">
         </el-table-column>
-        <el-table-column align="center" label="操作">
+        <!-- <el-table-column align="center" label="操作">
           <template v-slot="scope">
-            <!-- <i class="el-icon-view examine" @click="handleClick(scope.row)"></i> -->
             <i
               class="el-icon-upload examine"
               @click.stop="handleClick(scope.row)"
             ></i>
           </template>
-        </el-table-column>
+        </el-table-column> -->
       </el-table>
     </div>
 

@@ -80,7 +80,15 @@
         </div>
       </div>
 
-      <div class="middle-box"><RickMap></RickMap></div>
+      <div class="middle-box">
+        <div class="switch-box" @click="mapShow = !mapShow">
+          <img v-if="mapShow" src="@/assets/imgs/imageMap.jpg" alt="" />
+          <img v-else src="@/assets/imgs/vectorMap.jpg" alt="" />
+          <div>{{ mapShow ? "影像图" : "矢量图" }}</div>
+        </div>
+        <RickMap v-if="mapShow"></RickMap>
+        <MasterMap v-else></MasterMap>
+      </div>
 
       <div class="right-box">
         <div class="category">
@@ -113,6 +121,7 @@ import RiskPointTrend from "./components/riskPointTrend.vue";
 import RickMap from "./components/rickMap.vue";
 import RiskOverview from "./components/riskOverview.vue";
 import RickMonitor from "./components/rickMonitor.vue";
+import MasterMap from "@/components/MasterMap.vue";
 export default {
   name: "HomeView",
   components: {
@@ -121,12 +130,14 @@ export default {
     RickMap,
     RiskOverview,
     RickMonitor,
+    MasterMap,
   },
   data() {
     return {
       hourMinuteSecond: "",
       yearToDate: "",
       newsPage: 0,
+      mapShow: true,
     };
   },
   methods: {

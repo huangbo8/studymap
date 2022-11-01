@@ -1,7 +1,9 @@
 <template>
   <div class="disaster-box">
     <header>
-      <span class="headline">输电线路地质灾害监测预警场景构建</span>
+      <span class="headline" @click="$router.push('/')"
+        >输电线路地质灾害监测预警场景构建</span
+      >
       <ul class="tab-box">
         <li
           v-for="item in tabData"
@@ -102,6 +104,7 @@ export default {
       color: #fff;
       font-weight: 400;
       font-size: 25px;
+      cursor: pointer;
     }
     .tab-box {
       width: 450px;
